@@ -13,21 +13,21 @@ export async function Navbar() {
   const menu = await getMenu("next-js-frontend-header-menu");
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
-      <div className="block flex-none md:hidden">
-        <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
-        </Suspense>
-      </div>
-      <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
+    <nav className="relative p-3 sm:p-4 lg:px-6">
+      <div className="flex items-center gap-3 md:gap-0">
+        <div className="flex min-w-0 flex-1 items-center gap-3 md:w-1/3 md:flex-none md:gap-0">
+          <div className="flex-none md:hidden">
+            <Suspense fallback={null}>
+              <MobileMenu menu={menu} />
+            </Suspense>
+          </div>
           <Link
             href="/"
             prefetch={true}
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+            className="flex min-w-0 items-center md:mr-2 md:w-auto lg:mr-6"
           >
             <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
+            <div className="ml-2 truncate text-sm font-medium uppercase md:hidden lg:block">
               {SITE_NAME}
             </div>
           </Link>
@@ -52,9 +52,14 @@ export async function Navbar() {
             <Search />
           </Suspense>
         </div>
-        <div className="flex justify-end md:w-1/3">
+        <div className="flex flex-none justify-end md:w-1/3">
           <CartModal />
         </div>
+      </div>
+      <div className="mt-3 md:hidden">
+        <Suspense fallback={<SearchSkeleton />}>
+          <Search />
+        </Suspense>
       </div>
     </nav>
   );
